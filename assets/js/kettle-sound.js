@@ -1,4 +1,4 @@
-/* kettle heating: hiss and crackle swell, a rumble at the boil, a breathy whistle carries the rising note */
+/* synthesised kettle: hiss, bubbles, a low rumble at the boil, and a whistle whose pitch rises with temperature */
 function createKettleSound(ctx, out) {
   const smooth = (a, b, x) => { const t = Math.min(Math.max((x - a) / (b - a), 0), 1); return t * t * (3 - 2 * t); };
   const buffer = (seconds, fill) => {

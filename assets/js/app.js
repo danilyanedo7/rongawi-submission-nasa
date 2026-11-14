@@ -15,7 +15,7 @@ const LAYERS = [
   { id: "movement", name: "Bird movement", voice: "Beat", color: "#ffffff",
     icon: '<path d="M4 18c3-1 4-5 7-6s5 2 9-6"/><circle cx="20" cy="6" r="1.6"/>' },
 ];
-const PERSONA = {
+const BIRD_INFO = {
   Eric: { tag: "Winter in Spain", winter: "Spain", line: "Eric spent the winter inland in Spain" },
   Nico: { tag: "Winter at Dakhla", winter: "Dakhla", line: "Nico crossed the Bay of Biscay in one day, 793 km, then wintered at Dakhla" },
   Sanne: { tag: "Left last", winter: "Dakhla", line: "Sanne left last, on 11 November, and also wintered at Dakhla" },
@@ -23,7 +23,7 @@ const PERSONA = {
 
 const $ = (s, root = document) => root.querySelector(s);
 // regenerated audio keeps its file names, so always check the server before using a cached copy
-const FRESH = { cache: "no-cache" };
+const NO_CACHE = { cache: "no-cache" };
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -48,7 +48,7 @@ const data = {};
 
 async function loadJSON(path, optional = false) {
   try {
-    const res = await fetch(path, FRESH);
+    const res = await fetch(path, NO_CACHE);
     if (!res.ok) throw new Error(`${res.status} ${path}`);
     return await res.json();
   } catch (err) {
@@ -126,7 +126,7 @@ async function loadData() {
   data.grid = null;
   if (gridMeta) {
     try {
-      const buf = await fetch("assets/data/era5_wind_grid.bin", FRESH).then((r) => { if (!r.ok) throw new Error(); return r.arrayBuffer(); });
+      const buf = await fetch("assets/data/era5_wind_grid.bin", NO_CACHE).then((r) => { if (!r.ok) throw new Error(); return r.arrayBuffer(); });
       data.grid = { ...gridMeta, values: new Int8Array(buf), dayIndex: new Map(gridMeta.dates.map((d, i) => [d, i])) };
     } catch { data.grid = null; }
   }
@@ -581,7 +581,7 @@ const audio = {
     if (this.buffers[bird]) return this.buffers[bird];
     if (this.pending[bird]) return this.pending[bird];
     this.pending[bird] = Promise.all(STEMS.map(async (s) => {
-      const res = await fetch(`assets/audio/${bird.toLowerCase()}-${s}.mp3`, FRESH);
+      const res = await fetch(`assets/audio/${bird.toLowerCase()}-${s}.mp3`, NO_CACHE);
       if (!res.ok) throw new Error(`${bird} audio could not load`);
       const buffer = await this.ctx.decodeAudioData(await res.arrayBuffer());
       if (buffer.duration < DURATION - .1) throw new Error("Audio and timeline durations do not match");
@@ -664,7 +664,7 @@ const windDemo = {
     audio.ensure();
     if (this.buffers) return this.buffers;
     if (!this.pending) this.pending = Promise.all(STEMS.map(async (stem) => {
-      const response = await fetch(data.score.wind_example.files[stem], FRESH);
+      const response = await fetch(data.score.wind_example.files[stem], NO_CACHE);
       if (!response.ok) throw new Error("The wind sound could not load");
       const buffer = await audio.ctx.decodeAudioData(await response.arrayBuffer());
       if (buffer.duration < 7.9) throw new Error("The wind sound is incomplete");
@@ -996,7 +996,7 @@ function drawStrips(root) {
 
 const ICON = {
   eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
-  heart: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>',
+  data: '<path d="M4 20V11M10 20V5M16 20v-6M3 20h18"/>',
   wave: '<path d="M3 12h2l2-6 3 12 3-9 2 5 2-2h4"/>',
 };
 
@@ -1040,7 +1040,7 @@ const CHAPTERS = [
       <h2>Why we used sound</h2>
       <div class="tiles">
         <div class="tile"><svg viewBox="0 0 24 24">${ICON.eye}</svg><b>Without the screen</b><span>You can follow a journey by ear</span></div>
-        <div class="tile"><svg viewBox="0 0 24 24">${ICON.heart}</svg><b>Real data</b><span>Every note comes from NASA imagery or GPS</span></div>
+        <div class="tile"><svg viewBox="0 0 24 24">${ICON.data}</svg><b>Real data</b><span>Every note comes from NASA imagery or GPS</span></div>
         <div class="tile"><svg viewBox="0 0 24 24">${ICON.wave}</svg><b>Changes over time</b><span>Speeding up or resting is easy to hear</span></div>
       </div>`,
   },
@@ -1069,7 +1069,7 @@ const CHAPTERS = [
     id: "explore", layout: "card", dock: true, layers: true, mood: "normal",
     html: () => {
       const t = data.totals[state.bird];
-      const p = PERSONA[state.bird];
+      const p = BIRD_INFO[state.bird];
       return `
       <p class="kicker">Listen</p>
       <h2>Pick a bird and press play</h2>
@@ -1088,7 +1088,7 @@ const CHAPTERS = [
       <p class="kicker">Side by side</p>
       <h2>Distance flown each day</h2>
       <div class="strips">
-        ${BIRDS.map((b) => `<div class="strip" data-strip="${b}"><div class="strip-head"><b style="border-bottom:3px solid ${COLORS[b]}">${b}</b><span>${PERSONA[b].tag}</span></div><svg aria-label="${b} daily distance rhythm"></svg></div>`).join("")}
+        ${BIRDS.map((b) => `<div class="strip" data-strip="${b}"><div class="strip-head"><b style="border-bottom:3px solid ${COLORS[b]}">${b}</b><span>${BIRD_INFO[b].tag}</span></div><svg aria-label="${b} daily distance rhythm"></svg></div>`).join("")}
       </div>
       <p class="lede">Tall bars are long flying days. They play as a faster beat.</p>`,
     enter: (root) => drawStrips(root),
@@ -1134,8 +1134,8 @@ function renderStory() {
   updateWindButtons();
 }
 
-const PITCH_BUDGETS = [10, 12, 18, 12, 22, 26, 10, 10];
-const PITCH_STARTS = PITCH_BUDGETS.map((_, index) => d3.sum(PITCH_BUDGETS.slice(0, index)));
+const CHAPTER_SECONDS = [10, 12, 18, 12, 22, 26, 10, 10];
+const PITCH_STARTS = CHAPTER_SECONDS.map((_, index) => d3.sum(CHAPTER_SECONDS.slice(0, index)));
 const PITCH_TITLES = ["Can you feel a migration?", "Where they went", "Listening to a kettle", "Why we used sound", "What each sound means", "Pick a bird and press play", "Distance flown each day", "Other data we could play"];
 const PITCH_SCRIPTS = [
   "These are three gulls from the same colony in Zeebrugge, Belgium. We call them Eric, Nico and Sanne. In autumn 2024 they flew south for the winter, each on a different route.",
@@ -1161,7 +1161,7 @@ function updatePitchUI() {
   }
   $("#pv-time").textContent = formatted;
   $("#pv-chapter").textContent = `${state.chapter + 1} / 8`;
-  $("#pv-budget").textContent = `${PITCH_BUDGETS[state.chapter]} seconds`;
+  $("#pv-seconds").textContent = `${CHAPTER_SECONDS[state.chapter]} seconds`;
   $("#pv-title").textContent = PITCH_TITLES[state.chapter];
   $("#pv-script").textContent = PITCH_SCRIPTS[state.chapter];
   $("#pv-cue").textContent = state.chapter === 4 ? "Listen to movement, the temperature image, the wind, then the sounds together" : state.chapter === 5 ? "Leave time to hear Eric, Nico, then Sanne" : "Follow the picture on screen";
@@ -1236,7 +1236,7 @@ function tickPitch() {
     }
   }
   if (cue === "2:tone") { kettle.temp = 20 + clamp(local / 6, 0, 1) * 80; kettle.draw($("#kettle")); }
-  if (!audio.playing && [0, 1, 6, 7].includes(chapter)) { state.progress = clamp(local / PITCH_BUDGETS[chapter], 0, 1); renderDynamic(); }
+  if (!audio.playing && [0, 1, 6, 7].includes(chapter)) { state.progress = clamp(local / CHAPTER_SECONDS[chapter], 0, 1); renderDynamic(); }
   if (seconds >= 120) { pitch.elapsed = 120; pitch.running = false; audio.pause(); windDemo.stop(); kettle.stop(); }
   updatePitchUI();
 }

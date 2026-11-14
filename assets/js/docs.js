@@ -1,4 +1,4 @@
-/* documentation page: route map, scrollytelling focus and section highlighting */
+/* documentation page: route map that follows the scroll, and section menu highlighting */
 (() => {
   const COLORS = { Eric: "#a8201a", Nico: "#0a9396", Sanne: "#ec9a29" };
   const NASA_RAMP = [[235, 228, 250], [205, 168, 200], [160, 100, 210], [60, 50, 200], [40, 90, 215], [30, 130, 230], [60, 185, 230], [130, 205, 210],
