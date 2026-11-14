@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Follow three birds through a map and sound, with NASA temperature images and ERA5 wind">
+
+<title>Earth Information Jukebox | Hear three gulls migrate</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060a12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2' y='4' width='3' height='8' rx='1.5' fill='%23a8201a'/%3E%3Crect x='6.5' y='6' width='3' height='6' rx='1.5' fill='%230a9396'/%3E%3Crect x='11' y='2' width='3' height='10' rx='1.5' fill='%23ec9a29'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/data/daily.json" as="fetch" crossorigin="">
+<link rel="preload" href="assets/data/countries-50m.json" as="fetch" crossorigin="">
+<link rel="preload" href="assets/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin="">
+<link rel="preload" href="assets/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin="">
+
+
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+
+<body>
+
+
+
+
+
+<main id="app" class="app" data-chapter="0"><header id="title-block-header" class="quarto-title-block"></header>
+  <h1 class="sr-only">Earth Information Jukebox</h1>
+
+  <!-- stack order: EIC raster, ERA5 wind, vectors -->
+  <div class="map" id="map" aria-label="Interactive migration map">
+    <canvas id="layer-eic" class="map-layer"></canvas>
+    <canvas id="layer-wind" class="map-layer"></canvas>
+    <svg id="layer-vector" class="map-layer" role="img" aria-labelledby="map-label">
+      <title id="map-label">Routes of three gulls between Belgium and West Africa over a NASA temperature layer</title>
+      <g class="g-viewport">
+        <g class="g-graticule"></g>
+        <g class="g-land"></g>
+        <g class="g-routes"></g>
+        <g class="g-stops"></g>
+        <g class="g-places"></g>
+      </g>
+      <g class="g-arrow"></g>
+      <g class="g-dot"></g>
+      <g class="g-preview"></g>
+    </svg>
+    <div class="map-vignette" aria-hidden="true"></div>
+  </div>
+  <div class="temperature-key" id="temperature-key"><span>Cooler</span><i id="map-temp-key"></i><span>Warmer</span></div>
+  <header class="hud-top">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-name">Earth Information Jukebox</span></div>
+    <nav class="chapter-dots" aria-label="Chapters"></nav>
+    <label class="sr-only" for="mobile-chapter">Chapter</label><select id="mobile-chapter" class="mobile-chapter" aria-label="Chapter"></select>
+    <div class="hud-actions">
+      <div class="pitch-timer" id="pitch-timer" title="Two-minute pitch timer">
+        <span class="pt-time" id="pt-time">0:00</span><span class="pt-total">/ 2:00</span>
+        <span class="pt-bar"><i id="pt-fill"></i></span>
+      </div>
+      <a class="ghost docs-link" href="documentation.html">Docs</a>
+      <button type="button" class="icon-btn" id="btn-motion" aria-pressed="true" aria-label="Pause map animation" title="Pause map animation"><svg viewbox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"></path></svg></button>
+      <button type="button" class="icon-btn" id="btn-fullscreen" title="Fullscreen (F)" aria-label="Fullscreen">
+        <svg viewbox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"></path></svg>
+      </button>
+    </div>
+  </header>
+  <section class="story" aria-live="polite">
+    <div class="story-inner" id="story"><p class="lede">Loading the journeys…</p></div>
+    <div class="story-nav">
+      <span class="story-count" id="story-count">1 / 8</span>
+      <button type="button" class="nav-btn" id="btn-prev" aria-label="Previous chapter">←</button>
+      <button type="button" class="nav-btn nav-next" id="btn-next" aria-label="Next chapter">→</button>
+    </div>
+  </section>
+  <aside class="layers" aria-label="Layers and sound stems">
+    <p class="panel-title">Choose what to hear</p>
+    <div class="layer-list" id="layer-list"></div>
+    <div class="legend">
+      <div class="legend-row"><span>Cooler</span><i class="legend-temp" id="legend-temp"></i><span>Warmer</span></div>
+    </div>
+  </aside>
+  <footer class="dock" aria-label="Player">
+    <div class="bird-chips" role="group" aria-label="Choose a bird"></div>
+    <button type="button" class="play" id="btn-play" aria-pressed="false" aria-label="Play">
+      <svg class="i-play" viewbox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+      <svg class="i-pause" viewbox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"></path></svg>
+    </button>
+    <div class="timeline">
+      <svg id="timeline" aria-hidden="true"></svg>
+      <label class="sr-only" for="journey-position">Journey position</label>
+      <input id="journey-position" class="journey-position" type="range" min="0" max="30" step="0.05" value="0">
+    </div>
+    <dl class="readouts">
+      <div><dt>Date</dt><dd id="ro-date">Loading</dd></div>
+      <div><dt>Daily travel</dt><dd id="ro-km">Loading</dd></div>
+      <div><dt>Image colour</dt><dd id="ro-temp"><i class="swatch"></i><span>Loading</span></dd></div>
+      <div><dt>Wind</dt><dd id="ro-wind">Unavailable</dd></div>
+    </dl>
+  </footer>
+
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+</main>
+<dialog id="presenter" class="presenter" aria-labelledby="pv-title">
+  <header class="pv-head">
+    <div class="pv-timer"><b id="pv-time">0:00</b><span>/ 2:00</span></div>
+    <div class="pv-bar" id="pv-bar"></div>
+    <button type="button" class="ghost" id="pv-reset">Reset timer</button>
+    <button type="button" class="ghost" id="pv-close">Close notes</button>
+  </header>
+  <div class="pv-main">
+    <section class="pv-now">
+      <p class="pv-label">Now · <span id="pv-chapter"></span> · <span id="pv-budget"></span></p>
+      <h2 id="pv-title"></h2>
+      <p class="pv-script" id="pv-script"></p>
+      <p class="pv-cue" id="pv-cue"></p>
+    </section>
+    <aside class="pv-next">
+      <p class="pv-label">Next</p>
+      <h2 id="pv-next"></h2>
+    </aside>
+  </div>
+  <footer class="pv-foot">
+    <button type="button" class="nav-btn" id="pv-prev" aria-label="Previous chapter">←</button>
+    <button type="button" class="nav-btn nav-next" id="pv-go" aria-label="Next chapter">→</button>
+  </footer>
+</dialog>
+
+<script src="assets/vendor/d3.v7.9.0.min.js"></script>
+<script src="assets/vendor/topojson-client.v3.1.0.min.js"></script>
+<script src="assets/js/kettle-sound.js"></script>
+<script src="assets/js/app.js"></script>
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,16 @@
+{
+  "n_birds": 3,
+  "n_fixes_total": 40814,
+  "date_start": "2024-07-15",
+  "date_end": "2025-04-30",
+  "colony_lat": 51.271,
+  "colony_lon": 3.166,
+  "gap_break_hours": 24,
+  "stop_radius_km": 20,
+  "stop_min_hours": 48,
+  "home_radius_km": 80,
+  "lat_min": 23.58,
+  "lat_max": 51.53,
+  "lon_min": -16.07,
+  "lon_max": 4.12
+}
