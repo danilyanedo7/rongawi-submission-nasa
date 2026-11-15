@@ -1253,7 +1253,7 @@ function go(index, animate = true, fromTimer = false) {
   app.dataset.all = ch.all ? "on" : "off";
   app.dataset.chapter = String(index);
   app.dataset.wind = ch.id === "how" && data.hasWind ? "on" : "off";
-  $("#temperature-key").hidden = ch.layers || ["plain", "mono", "dim"].includes(ch.mood);
+  $("#temperature-key").classList.toggle("is-off", ch.layers || ["plain", "mono", "dim"].includes(ch.mood));
   if (!ch.dock && audio.playing) audio.pause();
   if (!ch.layers || ch.id === "explore") allLayers();
 

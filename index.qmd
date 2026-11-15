@@ -44,7 +44,7 @@ format:
     </svg>
     <div class="map-vignette" aria-hidden="true"></div>
   </div>
-  <div class="temperature-key" id="temperature-key"><span>Cooler</span><i id="map-temp-key"></i><span>Warmer</span></div>
+  <div class="temperature-key is-off" id="temperature-key"><span>Cooler</span><i id="map-temp-key"></i><span>Warmer</span></div>
   <header class="hud-top">
     <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span class="brand-name">Flock Around and Find Out</span></div>
     <nav class="chapter-dots" aria-label="Chapters"></nav>
