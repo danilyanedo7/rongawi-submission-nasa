@@ -17,9 +17,9 @@ const LAYERS = [
     icon: '<path d="M4 18c3-1 4-5 7-6s5 2 9-6"/><circle cx="20" cy="6" r="1.6"/>' },
 ];
 const BIRD_INFO = {
-  Eric: { tag: "Winter in Spain", winter: "Spain", line: "Eric spent the winter inland in Spain" },
-  Nico: { tag: "Winter at Dakhla", winter: "Dakhla", line: "Nico crossed the Bay of Biscay in one day, 793 km, then wintered at Dakhla" },
-  Sanne: { tag: "Left last", winter: "Dakhla", line: "Sanne left last, on 11 November, and also wintered at Dakhla" },
+  Eric: { winter: "Spain", line: "Eric spent the winter inland in Spain" },
+  Nico: { winter: "Dakhla", line: "Nico crossed the Bay of Biscay in one day, 793 km, then wintered at Dakhla" },
+  Sanne: { winter: "Dakhla", line: "Sanne left last, on 11 November, and also wintered at Dakhla" },
 };
 
 const $ = (s, root = document) => root.querySelector(s);
@@ -981,22 +981,6 @@ const kettle = {
   },
 };
 
-function drawStrips(root) {
-  BIRDS.forEach((bird) => {
-    const el = root.querySelector(`[data-strip="${bird}"] svg`);
-    const width = el.getBoundingClientRect().width || 300;
-    const pts = data.points[bird];
-    const x = d3.scaleLinear([0, pts.length], [0, width]);
-    const y = d3.scaleLinear([0, data.maxKm], [0, 32]);
-    const bars = d3.select(el).attr("viewBox", `0 0 ${width} 34`).selectAll("rect").data(pts).join("rect")
-      .attr("x", (d, i) => x(i)).attr("width", Math.max(0.8, width / pts.length - 0.5))
-      .attr("y", (d) => 34 - y(d.gap ? 0 : d.km)).attr("height", (d) => y(d.gap ? 0 : d.km))
-      .attr("fill", COLORS[bird]).attr("opacity", reducedMotion ? .9 : 0);
-    if (!reducedMotion) bars.transition().delay((d, i) => i * 4).duration(300).attr("opacity", .9);
-  });
-}
-
-
 const CHAPTERS = [
   {
     id: "hook", layout: "hero", dock: false, layers: false, mood: "plain",
@@ -1076,17 +1060,6 @@ const CHAPTERS = [
     },
   },
   {
-    id: "takeaway", layout: "card", dock: false, layers: false, mood: "normal", all: true,
-    html: () => `
-      <p class="kicker">Side by side</p>
-      <h2>Distance flown each day</h2>
-      <div class="strips">
-        ${BIRDS.map((b) => `<div class="strip" data-strip="${b}"><div class="strip-head"><b style="border-bottom:3px solid ${COLORS[b]}">${b}</b><span>${BIRD_INFO[b].tag}</span></div><svg aria-label="${b} daily distance rhythm"></svg></div>`).join("")}
-      </div>
-      <p class="lede">Tall bars are long flying days. They play as a faster beat.</p>`,
-    enter: (root) => drawStrips(root),
-  },
-  {
     id: "future", layout: "wide", dock: false, layers: false, mood: "normal",
     html: () => `
       <p class="kicker">What's next</p>
@@ -1127,9 +1100,9 @@ function renderStory() {
   updateWindButtons();
 }
 
-const CHAPTER_SECONDS = [10, 12, 18, 12, 22, 26, 10, 10];
+const CHAPTER_SECONDS = [15, 17, 18, 12, 22, 26, 10];
 const PITCH_STARTS = CHAPTER_SECONDS.map((_, index) => d3.sum(CHAPTER_SECONDS.slice(0, index)));
-const PITCH_TITLES = ["Have you ever wondered what it feels like to be a migrating bird?", "Every journey has a rhythm and a story", "Listening to a kettle", "Let's hear what the journey feels like", "What each sound means", "Pick a bird and press play", "Distance flown each day", "Other data we could play"];
+const PITCH_TITLES = ["Have you ever wondered what it feels like to be a migrating bird?", "Every journey has a rhythm and a story", "Listening to a kettle", "Let's hear what the journey feels like", "What each sound means", "Pick a bird and press play", "Other data we could play"];
 const PITCH_SCRIPTS = [
   "These are three gulls from the same colony in Zeebrugge, Belgium. We call them Eric, Nico and Sanne. In autumn 2024 they flew south for the winter, each on a different route.",
   "This is the usual way to show a migration, as lines on a map. That works if you can see it. We wanted to know what the same data sounds like.",
@@ -1137,7 +1110,6 @@ const PITCH_SCRIPTS = [
   "With sound, someone can follow the birds without seeing the screen. It also makes changes over time easy to notice, like a bird speeding up or stopping to rest.",
   "Here are the three sounds. The beat comes from how far the bird flew each day. The notes come from the colour of the NASA temperature image under the bird. For one day, 30 October, we added the wind Nico had while crossing the Bay of Biscay. First one at a time, then together.",
   "Now the full journeys. Eric spent the winter in Spain. Nico and Sanne went further, to Dakhla on the Saharan coast, and Sanne was the last to leave.",
-  "This is the distance each bird flew per day. The long flying days are the tall bars, and you hear them as a faster beat.",
   "The same method could work for other NASA data, such as fire detections, rainfall or a spacecraft's path. We haven't built those yet."
 ];
 const pitch = { running: false, elapsed: 0, startedAt: 0, cue: "", preparing: false, revision: 0 };
@@ -1153,14 +1125,14 @@ function updatePitchUI() {
     pitchButton.setAttribute("aria-pressed", String(pitch.running));
   }
   $("#pv-time").textContent = formatted;
-  $("#pv-chapter").textContent = `${state.chapter + 1} / 8`;
+  $("#pv-chapter").textContent = `${state.chapter + 1} / ${CHAPTERS.length}`;
   $("#pv-seconds").textContent = `${CHAPTER_SECONDS[state.chapter]} seconds`;
   $("#pv-title").textContent = PITCH_TITLES[state.chapter];
   $("#pv-script").textContent = PITCH_SCRIPTS[state.chapter];
   $("#pv-cue").textContent = state.chapter === 4 ? "Listen to movement, the temperature image, the wind, then the sounds together" : state.chapter === 5 ? "Leave time to hear Eric, Nico, then Sanne" : "Follow the picture on screen";
   $("#pv-next").textContent = PITCH_TITLES[state.chapter + 1] || "End of pitch";
   $("#pv-prev").disabled = state.chapter === 0;
-  $("#pv-go").disabled = state.chapter === 7;
+  $("#pv-go").disabled = state.chapter === CHAPTERS.length - 1;
 }
 function pausePitch() {
   pitch.elapsed = pitchTime(); pitch.running = false;
@@ -1229,7 +1201,7 @@ function tickPitch() {
     }
   }
   if (cue === "2:tone") { kettle.temp = 20 + clamp(local / 6, 0, 1) * 80; kettle.draw($("#kettle")); }
-  if (!audio.playing && [0, 1, 6, 7].includes(chapter)) { state.progress = clamp(local / CHAPTER_SECONDS[chapter], 0, 1); renderDynamic(); }
+  if (!audio.playing && [0, 1, 6].includes(chapter)) { state.progress = clamp(local / CHAPTER_SECONDS[chapter], 0, 1); renderDynamic(); }
   if (seconds >= 120) { pitch.elapsed = 120; pitch.running = false; audio.pause(); windDemo.stop(); kettle.stop(); }
   updatePitchUI();
 }
@@ -1374,7 +1346,7 @@ function tick() {
       state.progress = Math.min(t / JOURNEY, 1);
     }
     renderDynamic();
-  } else if (state.preview && ["hook", "maps", "takeaway"].includes(CHAPTERS[state.chapter].id)) {
+  } else if (state.preview && ["hook", "maps"].includes(CHAPTERS[state.chapter].id)) {
     state.progress = clamp(state.progress + delta / JOURNEY, 0, 1);
     renderDynamic();
     if (state.progress >= 1) { state.preview = false; updateMotionUI(); }

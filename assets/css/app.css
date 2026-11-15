@@ -212,10 +212,6 @@ kbd { padding: 1px 6px; border: 1px solid var(--line); border-bottom-width: 2px;
 .moments .ghost { font-size: var(--fs-small); padding: .45rem .75rem; }
 .moments .ghost b { color: var(--active); font-weight: 700; }
 
-.strips { margin-top: 1rem; display: grid; gap: .6rem; }
-.strip-head { display: flex; justify-content: space-between; align-items: baseline; font-size: var(--fs-small); color: var(--muted); }
-.strip-head b { color: var(--text); font: 700 var(--fs-body)/1 var(--font); }
-.strip svg { display: block; width: 100%; height: 1.8rem; }
 
 .cards { margin-top: 1.1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
 .card { padding: .85rem; border-radius: .75rem; border: 1px solid var(--line); background: rgba(255,255,255,.025); }
