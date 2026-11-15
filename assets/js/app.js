@@ -1069,6 +1069,10 @@ const CHAPTERS = [
         <div class="card"><b>Rainfall</b><span>A storm as it builds and passes</span></div>
         <div class="card"><b>Spacecraft</b><span>An orbit or a flyby as a melody</span></div>
       </div>
+      <div class="visit">
+        <img class="qr" src="assets/iwaktempe.png" width="1147" height="1147" alt="QR code linking to danilyanedo7.github.io/rongawi-submission-nasa">
+        <div><b>Fly along yourself</b><span>Scan to open Flock Around and Find Out on your phone</span><span class="url">danilyanedo7.github.io/rongawi-submission-nasa</span></div>
+      </div>
 `,
   },
 ];
