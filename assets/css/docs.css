@@ -63,7 +63,8 @@ p, ul, ol { margin: 0 0 1rem; }
 
 .hero { padding-block: 5rem 4rem; }
 .eyebrow { color: var(--muted); font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.hero h1 { margin: .5rem 0 1rem; max-width: 18ch; font-size: clamp(2.4rem, 4vw + 1rem, 3.6rem); font-weight: 900; }
+.hero h1 { margin: .5rem 0 .5rem; max-width: 18ch; font-size: clamp(2.4rem, 4vw + 1rem, 3.6rem); font-weight: 900; }
+.tagline { margin: 0 0 1.2rem; font-size: clamp(1.15rem, 1vw + .9rem, 1.45rem); font-weight: 500; font-style: italic; }
 .lead { max-width: var(--measure); font-size: 1.2rem; color: var(--muted); }
 .byline { color: var(--muted); }
 .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1rem; max-width: 46rem; margin: 2rem 0 0; }

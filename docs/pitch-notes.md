@@ -1,4 +1,4 @@
-# Earth Information Jukebox: two-minute pitch
+# Flock Around and Find Out: two-minute pitch
 
 The pitch is `index.qmd`, an eight-chapter story told over a live map. The longer write-up is `documentation.qmd`.
 

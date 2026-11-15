@@ -23,7 +23,7 @@ def fetch(lats: list[float], lons: list[float], date: str) -> list[dict]:
         "start_date": date, "end_date": date, "hourly": "wind_speed_100m,wind_direction_100m",
         "wind_speed_unit": "ms", "timezone": "GMT", "models": "era5",
     })
-    request = urllib.request.Request(f"{API}?{query}", headers={"User-Agent": "earth-information-jukebox"})
+    request = urllib.request.Request(f"{API}?{query}", headers={"User-Agent": "flock-around-and-find-out"})
     for attempt in range(4):
         try:
             with urllib.request.urlopen(request, timeout=60) as response:

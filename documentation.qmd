@@ -1,8 +1,8 @@
 ---
 title: ""
-pagetitle: "Earth Information Jukebox | Full documentation"
+pagetitle: "Flock Around and Find Out | Full documentation"
 lang: en
-description-meta: "How the Earth Information Jukebox turns NASA Earth Information Center imagery and three gull migrations into sound"
+description-meta: "How Flock Around and Find Out turns NASA Earth Information Center imagery and three gull migrations into sound"
 format:
   html:
     minimal: true
@@ -45,7 +45,8 @@ format:
 <main id="main">
   <section class="hero wrap" aria-labelledby="title">
     <p class="eyebrow">NASA Space Apps Challenge 2026: The Earth Information Jukebox</p>
-    <h1 id="title">Earth Information Jukebox</h1>
+    <h1 id="title">Flock Around and Find Out</h1>
+    <p class="tagline">Bird migration, earth data, and questionable musical decisions</p>
     <p class="lead">A web page where you can follow three gulls on their autumn migration by watching, by listening, or both. The harmony comes from NASA Earth Information Center temperature imagery, and the melody and rhythm come from the birds' GPS tracks.</p>
     <p class="byline">By team <strong>Rongawi Iwak Tempe Solutions</strong></p>
     <dl class="facts">
@@ -342,7 +343,7 @@ format:
 </main>
 
 <footer class="site-foot">
-  <div class="wrap"><p>Earth Information Jukebox, by Rongawi Iwak Tempe Solutions, for the NASA Space Apps Challenge 2026.</p></div>
+  <div class="wrap"><p>Flock Around and Find Out, by Rongawi Iwak Tempe Solutions, for the NASA Space Apps Challenge 2026.</p></div>
 </footer>
 
 <script src="assets/vendor/d3.v7.9.0.min.js"></script>

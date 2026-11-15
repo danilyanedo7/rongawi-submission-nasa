@@ -1,4 +1,6 @@
-# Earth Information Jukebox
+# Flock Around and Find Out
+
+*Bird migration, earth data, and questionable musical decisions*
 
 Our submission to the NASA Space Apps Challenge 2026, [The Earth Information Jukebox](https://www.spaceappschallenge.org/2026/challenges/the-earth-information-jukebox/), by team **Rongawi Iwak Tempe Solutions**:
 
