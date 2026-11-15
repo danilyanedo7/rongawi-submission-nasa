@@ -1,0 +1,9 @@
+/extra/
+
+/.quarto/
+/_site/
+**/*.quarto_ipynb
+__pycache__/
+scripts/soundfont/*.SF2
+scripts/soundfont/*.SF2
+scripts/soundfont/*.SF2

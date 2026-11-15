@@ -1,0 +1,17 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - documentation.qmd
+  resources:
+    - assets/
+
+format:
+  html:
+    title-block: false
+    toc: false
+    page-layout: full
+
+execute:
+  enabled: false

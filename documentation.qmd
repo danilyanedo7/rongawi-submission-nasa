@@ -1,0 +1,351 @@
+---
+title: ""
+pagetitle: "Earth Information Jukebox | Full documentation"
+lang: en
+description-meta: "How the Earth Information Jukebox turns NASA Earth Information Center imagery and three gull migrations into sound"
+format:
+  html:
+    minimal: true
+    title-block: false
+    toc: false
+    page-layout: custom
+    css: assets/css/docs.css
+    include-in-header:
+      text: |
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2' y='4' width='3' height='8' rx='1.5' fill='%23a8201a'/%3E%3Crect x='6.5' y='6' width='3' height='6' rx='1.5' fill='%230a9396'/%3E%3Crect x='11' y='2' width='3' height='10' rx='1.5' fill='%23ec9a29'/%3E%3C/svg%3E">
+        <link rel="preload" href="assets/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="assets/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin>
+---
+
+```{=html}
+<a class="skip" href="#main">Skip to the documentation</a>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="back" href="index.html">Back to the pitch</a>
+    <nav aria-label="Sections" class="toc">
+      <ul>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#challenge">Challenge</a></li>
+        <li><a href="#data">Data</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#listen">Listen</a></li>
+        <li><a href="#palette">Colour</a></li>
+        <li><a href="#access">Accessibility</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#ai">AI use</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero wrap" aria-labelledby="title">
+    <p class="eyebrow">NASA Space Apps Challenge 2026: The Earth Information Jukebox</p>
+    <h1 id="title">Earth Information Jukebox</h1>
+    <p class="lead">A web page where you can follow three gulls on their autumn migration by watching, by listening, or both. The harmony comes from NASA Earth Information Center temperature imagery, and the melody and rhythm come from the birds' GPS tracks.</p>
+    <p class="byline">By team <strong>Rongawi Iwak Tempe Solutions</strong></p>
+    <dl class="facts">
+      <div><dt>Birds</dt><dd>3 lesser black-backed gulls</dd></div>
+      <div><dt>Tracked</dt><dd>Oct 2024 to Apr 2025</dd></div>
+      <div><dt>GPS fixes</dt><dd>40,814</dd></div>
+      <div><dt>NASA frames</dt><dd>60</dd></div>
+    </dl>
+  </section>
+
+  <!-- story -->
+  <section id="story" class="chapter" aria-labelledby="story-h">
+    <div class="wrap scrolly">
+      <div class="steps">
+        <h2 id="story-h"><span class="num">1</span> The story</h2>
+        <div class="step" data-step="all">
+          <p>Eric, Nico and Sanne are three lesser black-backed gulls from the colony at Zeebrugge, on the Belgian coast. All three left in autumn 2024 and came back in spring 2025, and each spent the winter somewhere different.</p>
+        </div>
+        <div class="step" data-step="Eric">
+          <h3><span class="dot eric" aria-hidden="true"></span> Eric</h3>
+          <p>Eric left on 22 October 2024. He rested near Orléans, south of Paris, for about two weeks, then crossed the Bay of Biscay in a single day on 7 November, flying 824 km. He spent the winter moving around inland Spain and was home on 19 March 2025.</p>
+        </div>
+        <div class="step" data-step="Nico">
+          <h3><span class="dot nico" aria-hidden="true"></span> Nico</h3>
+          <p>Nico left on 27 October. On 30 October he flew 793 km across the open Bay of Biscay with the wind behind him. He then spent 139 days at Dakhla, on the Saharan coast, and returned last, on 12 April.</p>
+        </div>
+        <div class="step" data-step="Sanne">
+          <h3><span class="dot sanne" aria-hidden="true"></span> Sanne</h3>
+          <p>Sanne was the last to leave, on 11 November. She also wintered at Dakhla and was back on 27 March, after 20,532 km.</p>
+        </div>
+      </div>
+      <figure class="stage" aria-labelledby="route-cap">
+        <div id="route-map" class="route-map" role="img" aria-label="Map of three routes from Belgium: Eric's ends in central and southern Spain, Nico's and Sanne's follow the Atlantic coast to Dakhla."></div>
+        <figcaption id="route-cap">Daily average positions from departure to return. Red: Eric. Teal: Nico. Gold: Sanne.</figcaption>
+      </figure>
+    </div>
+    <div class="wrap">
+      <div class="table-scroll" role="region" aria-labelledby="journeys-cap" tabindex="0">
+      <table class="data-table">
+        <caption id="journeys-cap">The three journeys, departure to return</caption>
+        <thead><tr><th scope="col">Bird</th><th scope="col">Left</th><th scope="col">Back</th><th scope="col">Winter</th><th scope="col">Distance</th><th scope="col">Biggest day</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Eric</th><td>22 Oct 2024</td><td>19 Mar 2025</td><td>Inland Spain</td><td>20,532 km</td><td>824 km, 7 Nov</td></tr>
+          <tr><th scope="row">Nico</th><td>27 Oct 2024</td><td>12 Apr 2025</td><td>Dakhla</td><td>15,646 km</td><td>793 km, 30 Oct</td></tr>
+          <tr><th scope="row">Sanne</th><td>11 Nov 2024</td><td>27 Mar 2025</td><td>Dakhla</td><td>20,532 km</td><td>580 km, 12 Nov</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- challenge -->
+  <section id="challenge" class="chapter alt" aria-labelledby="challenge-h">
+    <div class="wrap narrow">
+      <h2 id="challenge-h"><span class="num">2</span> The challenge</h2>
+      <blockquote>
+        <p>Build an "Earth Jukebox" that "pairs EIC visual frames with dynamic sonifications generated in real time."</p>
+        <footer>NASA Space Apps Challenge 2026, <cite>The Earth Information Jukebox</cite></footer>
+      </blockquote>
+      <p>NASA's Earth Information Center (EIC) explains how the planet is changing mostly through images and animations. That leaves out people who are blind or have low vision, and some changes are easier to notice by ear than by eye.</p>
+      <p>A kettle is a good everyday example. Nobody checks a thermometer to know the water is boiling; the hiss gets louder and then the whistle starts. We tried the same with Earth data, and picked bird migration because it is easy to picture and to follow over time.</p>
+    </div>
+  </section>
+
+  <!-- data -->
+  <section id="data" class="chapter" aria-labelledby="data-h">
+    <div class="wrap scrolly">
+      <div class="steps">
+        <h2 id="data-h"><span class="num">3</span> The data</h2>
+        <div class="step" data-step="eic">
+          <h3>NASA Earth Information Center imagery</h3>
+          <p>The temperature layer is the EIC visualization <a href="https://svs.gsfc.nasa.gov/5147/">GEOS-FP Near-Surface Temperature (SVS 5147)</a>, from NASA's GEOS-FP weather model. We use 60 frames, one every six hours, from 30 October to 14 November 2026.</p>
+          <p>The EIC only keeps the latest two weeks of this animation, so there are no frames from 2024 or 2025. We play the 60 frames across each journey instead, the first at departure and the last at return, like a musical score. The map and the music always use the same frame at the same moment.</p>
+        </div>
+        <div class="step" data-step="tracks">
+          <h3>Gull GPS tracks</h3>
+          <p>The tracks come from the open <a href="https://doi.org/10.5281/zenodo.22083084">LBBG_ADULT</a> dataset of the Research Institute for Nature and Forest (INBO) in Belgium, released under CC0. We picked three birds that left and returned at similar times and gave them names.</p>
+          <p>We processed them with the same R scripts as our earlier migration essay. We kept one position every 30 minutes and removed one impossible jump. A stopover is at least two days within 20 km, and a tracking gap is a full day with no position.</p>
+        </div>
+        <div class="step" data-step="wind">
+          <h3>ERA5 wind</h3>
+          <p>For one example we added hourly ERA5 wind at 100 m, from the Open-Meteo archive, for 30 October 2024. That is the day Nico crossed the Bay of Biscay, and he had an easterly tailwind of about 7.5 m/s for most of it. The wind only appears in that one example.</p>
+        </div>
+      </div>
+      <figure class="stage frames" aria-labelledby="frame-cap">
+        <div class="frame-pair">
+          <img src="assets/eic-temperature/frame-001.jpg" width="640" height="320" alt="NASA EIC global near-surface temperature frame for 30 October 2026, in NASA's colours: purple and blue near the poles, yellow, orange and red near the equator.">
+          <img src="assets/eic-map/frame-001.jpg" width="820" height="652" alt="The same frame reprojected over Europe and North Africa and recoloured: blue over northern Europe, orange and red over the Sahara.">
+        </div>
+        <figcaption id="frame-cap">Top: the original NASA EIC frame. Bottom: the same frame cropped to the flyway, reprojected and recoloured for the map.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- approach -->
+  <section id="approach" class="chapter alt" aria-labelledby="approach-h">
+    <div class="wrap scrolly">
+      <div class="steps">
+        <h2 id="approach-h"><span class="num">4</span> From picture to sound</h2>
+        <div class="step" data-step="read">
+          <h3>Step 1: Read the colour under the bird</h3>
+          <p>At each moment of a journey we take the EIC frame for that moment and read the colour at the bird's position. We look up that colour on NASA's own colour scale, which gives a number between 0 (the coldest colour) and 1 (the warmest). It is a relative value, not a temperature in degrees.</p>
+        </div>
+        <div class="step" data-step="compose">
+          <h3>Step 2: Turn the data into music</h3>
+          <p>Each journey is split into 26 one-second steps and written as a MIDI file, followed by a 4-second ending back at the colony:</p>
+          <ul>
+            <li>The image warmth under the bird sets the chord. A warmer colour plays a higher chord, on a D minor pentatonic scale so that any combination sounds reasonable.</li>
+            <li>Latitude sets the melody: higher in the north, lower in the south. On the way back the same melody plays upside down.</li>
+            <li>The distance flown that day sets the beat, up to four pulses per beat on the busiest days. On a rest day the beat stops and the melody holds one long note.</li>
+            <li>Distance from the colony sets a low drone on the home note: loud near home, quiet far away. The ending plays the home chord.</li>
+            <li>In the wind example, the wind sets the tempo and the interval. Stronger wind is faster, a tailwind gives open intervals and a headwind gives tense ones.</li>
+          </ul>
+        </div>
+        <div class="step" data-step="render">
+          <h3>Step 3: Play it with instrument sounds</h3>
+          <p>FluidSynth plays the MIDI through a General MIDI soundfont: flute for the melody, marimba for the beat, a warm pad for the harmony and a low cello drone for the ending at home. Each instrument is saved as its own track, which is why each map layer can switch its sound on and off.</p>
+        </div>
+        <div class="step" data-step="sync">
+          <h3>Step 4: Keep the map and the sound in sync</h3>
+          <p>Each recording lasts 30 seconds: 26 seconds of journey and 4 seconds at home. The browser starts every track on the same clock as the map, so the chord you hear comes from the colour under the bird you are looking at.</p>
+        </div>
+      </div>
+      <figure class="stage" aria-labelledby="map-cap">
+        <ol class="pipeline">
+          <li data-for="read"><span class="pi-label">EIC frame colour</span><span class="pi-out">a warmth value from 0 to 1</span></li>
+          <li data-for="compose"><span class="pi-label">Warmth</span><span class="pi-out">pad chords, MIDI 48 to 64</span></li>
+          <li data-for="compose"><span class="pi-label">Latitude</span><span class="pi-out">flute melody, MIDI 60 to 84</span></li>
+          <li data-for="compose"><span class="pi-label">Daily distance</span><span class="pi-out">marimba, 0 to 4 pulses per beat</span></li>
+          <li data-for="compose"><span class="pi-label">Wind</span><span class="pi-out">tempo 60 to 140 BPM and the pad interval</span></li>
+          <li data-for="render"><span class="pi-label">MIDI</span><span class="pi-out">4 tracks played by FluidSynth</span></li>
+          <li data-for="sync"><span class="pi-label">Tracks</span><span class="pi-out">one clock shared with the map</span></li>
+        </ol>
+        <figcaption id="map-cap">How one moment of a journey becomes sound.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- listen -->
+  <section id="listen" class="chapter" aria-labelledby="listen-h">
+    <div class="wrap narrow">
+      <h2 id="listen-h"><span class="num">5</span> Listen</h2>
+      <p>Each recording is 30 seconds long. The first 26 seconds cover the whole journey, from departure to return, and the last 4 seconds are the bird back home. Headphones help.</p>
+      <div class="listen">
+        <article class="clip">
+          <h3><span class="dot eric" aria-hidden="true"></span> Eric</h3>
+          <audio controls preload="none" src="assets/audio/eric.mp3" aria-describedby="eric-desc"></audio>
+          <p id="eric-desc">What you hear: the beat runs almost the whole way through, because Eric kept moving around Spain all winter. Eric's chords sit lower than the others', because inland Spain reads cooler on the NASA image. In the last four seconds the beat stops and a low drone marks the return home.</p>
+        </article>
+        <article class="clip">
+          <h3><span class="dot nico" aria-hidden="true"></span> Nico</h3>
+          <audio controls preload="none" src="assets/audio/nico.mp3" aria-describedby="nico-desc"></audio>
+          <p id="nico-desc">What you hear: a burst of beats at the start, including the crossing of the Bay of Biscay, then long held notes for most of the piece during the stay at Dakhla, and the beat again on the way home. A low drone ends the journey back at the colony.</p>
+        </article>
+        <article class="clip">
+          <h3><span class="dot sanne" aria-hidden="true"></span> Sanne</h3>
+          <audio controls preload="none" src="assets/audio/sanne.mp3" aria-describedby="sanne-desc"></audio>
+          <p id="sanne-desc">What you hear: a steady beat for most of the way south, a stretch of held notes at Dakhla, and a busy beat on the flight home before the drone at the end.</p>
+        </article>
+        <article class="clip">
+          <h3>Nico and the wind, 30 October 2024</h3>
+          <audio controls preload="none" src="assets/audio/nico-wind-example.mp3" aria-describedby="wind-desc"></audio>
+          <p id="wind-desc">What you hear: 21 hours over the Bay of Biscay in 8 seconds. The tempo slows as the tailwind drops from about 10 to 5 m/s. The pad plays open intervals because the wind is behind Nico the whole time.</p>
+        </article>
+      </div>
+      <details class="stems">
+        <summary>Hear each instrument on its own</summary>
+        <ul>
+          <li>Eric: <a href="assets/audio/eric-movement.mp3">melody, beat and drone (GPS track)</a>, <a href="assets/audio/eric-temperature.mp3">chords (EIC temperature)</a></li>
+          <li>Nico: <a href="assets/audio/nico-movement.mp3">melody, beat and drone (GPS track)</a>, <a href="assets/audio/nico-temperature.mp3">chords (EIC temperature)</a></li>
+          <li>Sanne: <a href="assets/audio/sanne-movement.mp3">melody, beat and drone (GPS track)</a>, <a href="assets/audio/sanne-temperature.mp3">chords (EIC temperature)</a></li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <!-- palette -->
+  <section id="palette" class="chapter alt" aria-labelledby="palette-h">
+    <div class="wrap scrolly">
+      <div class="steps">
+        <h2 id="palette-h"><span class="num">6</span> Colour palette</h2>
+        <div class="step" data-step="nasa">
+          <h3>NASA's ramp, read by the computer</h3>
+          <p>The EIC frames use a 16-colour scale from pale lilac (coldest) through blue, green, yellow and orange to dark red (warmest). We don't show it on the map. We only use it to read each pixel as a value from 0 to 1.</p>
+        </div>
+        <div class="step" data-step="map">
+          <h3>Our map: MetBrewer Hiroshige, reversed</h3>
+          <p>On the map we redraw the same values with the Hiroshige palette from MetBrewer, reversed, so blue is cooler and orange and red are warmer. Most people with colour-vision deficiencies can still tell blue from orange.</p>
+          <p>The switch from blue to orange happens at the point where NASA's own scale turns orange, so Europe shows as cool and the Sahara and Middle East as warm. The layer is drawn at 50% opacity so the routes and coastlines stay readable.</p>
+        </div>
+        <div class="step" data-step="birds">
+          <h3>Birds and sounds</h3>
+          <p>Each bird has one colour throughout, always shown next to its name. The three sound layers each have a colour and an icon.</p>
+        </div>
+        <div class="step" data-step="type">
+          <h3>Typeface</h3>
+          <p>All text is set in Satoshi. The font files are stored with the page, so it also works offline on a projector.</p>
+        </div>
+      </div>
+      <figure class="stage swatches" aria-labelledby="pal-cap">
+        <div class="swatch-group" data-for="nasa">
+          <p class="sw-title">NASA EIC ramp (16 colours)</p>
+          <ul class="ramp" id="ramp-nasa" aria-hidden="true"></ul>
+        </div>
+        <div class="swatch-group" data-for="map">
+          <p class="sw-title">Map: Hiroshige, reversed (10 colours)</p>
+          <ul class="ramp labelled">
+            <li style="--c:#1e466e"><span>#1e466e</span></li><li style="--c:#376795"><span>#376795</span></li><li style="--c:#528fad"><span>#528fad</span></li><li style="--c:#72bcd5"><span>#72bcd5</span></li><li style="--c:#aadce0"><span>#aadce0</span></li>
+            <li style="--c:#ffe6b7"><span>#ffe6b7</span></li><li style="--c:#ffd06f"><span>#ffd06f</span></li><li style="--c:#f7aa58"><span>#f7aa58</span></li><li style="--c:#ef8a47"><span>#ef8a47</span></li><li style="--c:#e76254"><span>#e76254</span></li>
+          </ul>
+          <p class="sw-ends"><span>Cooler</span><span>Warmer</span></p>
+        </div>
+        <div class="swatch-group" data-for="birds">
+          <p class="sw-title">Birds and sound layers</p>
+          <ul class="chips">
+            <li style="--c:#a8201a">Eric <code>#a8201a</code></li>
+            <li style="--c:#0a9396">Nico <code>#0a9396</code></li>
+            <li style="--c:#ec9a29">Sanne <code>#ec9a29</code></li>
+            <li style="--c:#ff8a3d">Temperature chords <code>#ff8a3d</code></li>
+            <li style="--c:#7cc4ff">Wind <code>#7cc4ff</code></li>
+            <li style="--c:#ffffff">Movement beat <code>#ffffff</code></li>
+          </ul>
+        </div>
+        <div class="swatch-group type-sample" data-for="type">
+          <p class="sw-title">Satoshi</p>
+          <p class="t900">Black 900</p><p class="t700">Bold 700</p><p class="t500">Medium 500</p><p class="t400">Regular 400</p>
+        </div>
+        <figcaption id="pal-cap">Every colour used for data, with its hex code.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- accessibility -->
+  <section id="access" class="chapter" aria-labelledby="access-h">
+    <div class="wrap narrow">
+      <h2 id="access-h"><span class="num">7</span> Accessibility</h2>
+      <p>The challenge asks for Earth data that people can experience without seeing it. This is what we did for that, on this page and in the pitch.</p>
+      <ul class="checks">
+        <li>Each migration can be followed by listening alone, and every recording has a written description of what it sounds like.</li>
+        <li>For screen readers the page uses proper headings, landmarks and a section menu. The route map has a text description and a table with the same facts.</li>
+        <li>Everything works with a keyboard, with a skip link and visible focus. In the pitch, the arrow keys change chapters, Space plays, 1 to 3 pick a bird and F switches to full screen.</li>
+        <li>Text is large, with high contrast in both the light and dark themes.</li>
+        <li>The map palette works for most kinds of colour blindness, and nothing is shown by colour alone.</li>
+        <li>If your device is set to reduce motion, the animations and the moving wind particles are turned off.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- team -->
+  <section id="team" class="chapter alt" aria-labelledby="team-h">
+    <div class="wrap narrow">
+      <h2 id="team-h"><span class="num">8</span> Team</h2>
+      <p class="team-name">Rongawi Iwak Tempe Solutions</p>
+      <ul class="team" id="team-list">
+        <li><p class="member">Edo Danilyan</p></li>
+        <li><p class="member">Muhammad Noor Fakhruzzaman</p></li>
+        <li><p class="member">Fauziyah</p></li>
+        <li><p class="member">Arief Purnama Muharram</p></li>
+        <li><p class="member">Muhammad Ikhsan</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ai -->
+  <section id="ai" class="chapter" aria-labelledby="ai-h">
+    <div class="wrap narrow">
+      <h2 id="ai-h"><span class="num">9</span> Use of AI tools</h2>
+      <p>The idea, the story and the design direction come from our team: following three gulls, pairing their journeys with NASA EIC imagery, the kettle example, and choosing which data drives each sound.</p>
+      <p>We used AI assistants, including Claude by Anthropic, as development tools. They helped us:</p>
+      <ul class="checks">
+        <li>Make the project reproducible, by turning our one-off processing steps into scripts that rebuild the data, map layers and audio from the original sources, with step-by-step instructions.</li>
+        <li>Write proper documentation: the README, this page and the pitch notes.</li>
+        <li>Write and refactor code for the web page, the Python build scripts, the MIDI composer and the tests. The team reviewed and ran all of it.</li>
+      </ul>
+      <p>No images, audio or data were generated by AI. The music is made by our own mapping script and FluidSynth from NASA EIC imagery and GPS tracks, and the gull artwork was made by a team member.</p>
+    </div>
+  </section>
+
+  <!-- sources -->
+  <section id="sources" class="chapter alt" aria-labelledby="sources-h">
+    <div class="wrap narrow">
+      <h2 id="sources-h"><span class="num">10</span> Sources and credits</h2>
+      <ul class="sources">
+        <li>NASA Scientific Visualization Studio, <a href="https://svs.gsfc.nasa.gov/5147/">GEOS-FP Near-Surface Temperature (SVS 5147)</a>, part of the <a href="https://svs.gsfc.nasa.gov/gallery/earth-information-center/">Earth Information Center content database</a>.</li>
+        <li>Stienen, E.W.M. et al. (2026). <a href="https://doi.org/10.5281/zenodo.22083084">LBBG_ADULT: Lesser black-backed gulls breeding in Belgium</a>. INBO, CC0.</li>
+        <li>Hersbach, H. et al. ERA5 reanalysis, via the <a href="https://open-meteo.com/en/docs/historical-weather-api">Open-Meteo Historical Weather API</a>.</li>
+        <li>NASA Space Apps Challenge 2026, <a href="https://www.spaceappschallenge.org/2026/challenges/the-earth-information-jukebox/">The Earth Information Jukebox</a>.</li>
+        <li>Tech stack: Python (NumPy, pandas, Pillow, mido), R (dplyr, sf) for the track processing, <a href="https://www.fluidsynth.org/">FluidSynth</a> and FFmpeg for the audio, and <a href="https://quarto.org/">Quarto</a>, D3 and the Web Audio API for the web pages.</li>
+        <li>Colour: <a href="https://github.com/BlakeRMills/MetBrewer">MetBrewer</a> Hiroshige palette. Typeface: <a href="https://www.fontshare.com/fonts/satoshi">Satoshi</a> by Indian Type Foundry. Maps: <a href="https://d3js.org/">D3</a> and Natural Earth boundaries.</li>
+      </ul>
+      <p><a class="back-bottom" href="index.html">Back to the pitch</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap"><p>Earth Information Jukebox, by Rongawi Iwak Tempe Solutions, for the NASA Space Apps Challenge 2026.</p></div>
+</footer>
+
+<script src="assets/vendor/d3.v7.9.0.min.js"></script>
+<script src="assets/vendor/topojson-client.v3.1.0.min.js"></script>
+<script src="assets/js/docs.js"></script>
+```
