@@ -996,27 +996,22 @@ function drawStrips(root) {
   });
 }
 
-const ICON = {
-  eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
-  data: '<path d="M4 20V11M10 20V5M16 20v-6M3 20h18"/>',
-  wave: '<path d="M3 12h2l2-6 3 12 3-9 2 5 2-2h4"/>',
-};
 
 const CHAPTERS = [
   {
     id: "hook", layout: "hero", dock: false, layers: false, mood: "plain",
     html: () => `
       <p class="kicker">NASA Space Apps Challenge 2026</p>
-      <h2>Can you <em style="font-style:normal;color:var(--sanne)">feel</em> a migration?</h2>
+      <h2 class="h-question">Have you ever wondered what it <em style="font-style:normal;color:var(--sanne)">feels</em> like to be a migrating bird?</h2>
       <p class="lede">Eric, Nico and Sanne nest in the same colony on the Belgian coast. In autumn 2024 they flew south on different routes.</p>`,
     enter: () => drawRoutesIn(),
   },
   {
     id: "maps", layout: "card", dock: false, layers: false, mood: "mono", all: true,
     html: () => `
-      <p class="kicker">The map</p>
-      <h2>Where they went</h2>
-      <p class="lede">This is how migration is usually shown. We wanted to hear it as well.</p>`,
+      <p class="kicker">The journey</p>
+      <h2>Every journey has a rhythm and a story</h2>
+      <p class="lede">Thousands of kilometres over the sea, riding the wind. Then a long rest, while the temperature shifts and the wind changes around them.</p>`,
   },
   {
     id: "sound", layout: "card", dock: false, layers: false, mood: "dim",
@@ -1036,15 +1031,11 @@ const CHAPTERS = [
     leave: () => kettle.stop(),
   },
   {
-    id: "why", layout: "card", dock: false, layers: false, mood: "normal",
+    id: "invite", layout: "card", dock: false, layers: false, mood: "normal",
     html: () => `
-      <p class="kicker">Why sound</p>
-      <h2>Why we used sound</h2>
-      <div class="tiles">
-        <div class="tile"><svg viewBox="0 0 24 24">${ICON.eye}</svg><b>Without the screen</b><span>You can follow a journey by ear</span></div>
-        <div class="tile"><svg viewBox="0 0 24 24">${ICON.data}</svg><b>Real data</b><span>Every note comes from NASA imagery or GPS</span></div>
-        <div class="tile"><svg viewBox="0 0 24 24">${ICON.wave}</svg><b>Changes over time</b><span>Speeding up or resting is easy to hear</span></div>
-      </div>`,
+      <p class="kicker">Flock Around and Find Out</p>
+      <h2>Let's hear what the journey feels like</h2>
+      <p class="lede">Our project turns each gull's GPS track and NASA Earth imagery into sound, so you can follow the flight, the rests and the world around them by ear.</p>`,
   },
   {
     id: "how", layout: "card", dock: true, layers: false, mood: "normal",
@@ -1138,7 +1129,7 @@ function renderStory() {
 
 const CHAPTER_SECONDS = [10, 12, 18, 12, 22, 26, 10, 10];
 const PITCH_STARTS = CHAPTER_SECONDS.map((_, index) => d3.sum(CHAPTER_SECONDS.slice(0, index)));
-const PITCH_TITLES = ["Can you feel a migration?", "Where they went", "Listening to a kettle", "Why we used sound", "What each sound means", "Pick a bird and press play", "Distance flown each day", "Other data we could play"];
+const PITCH_TITLES = ["Have you ever wondered what it feels like to be a migrating bird?", "Every journey has a rhythm and a story", "Listening to a kettle", "Let's hear what the journey feels like", "What each sound means", "Pick a bird and press play", "Distance flown each day", "Other data we could play"];
 const PITCH_SCRIPTS = [
   "These are three gulls from the same colony in Zeebrugge, Belgium. We call them Eric, Nico and Sanne. In autumn 2024 they flew south for the winter, each on a different route.",
   "This is the usual way to show a migration, as lines on a map. That works if you can see it. We wanted to know what the same data sounds like.",

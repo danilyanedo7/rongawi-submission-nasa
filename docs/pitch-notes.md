@@ -4,10 +4,10 @@ The pitch is `index.qmd`, an eight-chapter story told over a live map. The longe
 
 | Time | Chapter | What happens on screen |
 | --- | --- | --- |
-| 0:00–0:10 | Can you feel a migration? | The three routes draw in. |
-| 0:10–0:22 | Where they went | The map shows the routes without sound. |
+| 0:00–0:10 | Have you ever wondered what it feels like to be a migrating bird? | The three routes draw in. |
+| 0:10–0:22 | Every journey has a rhythm and a story | The map shows the routes without sound. |
 | 0:22–0:40 | Listening to a kettle | A six-second kettle heats up: the hiss grows, then the whistle rises to the boil. Leave room to hear it. |
-| 0:40–0:52 | Why we used sound | Three reasons for using sound. |
+| 0:40–0:52 | Let's hear what the journey feels like | An invitation to listen to the birds' journeys. |
 | 0:52–1:14 | What each sound means | Five seconds of movement, five of the NASA image, six of Nico's wind, then six with all three together. |
 | 1:14–1:40 | Pick a bird and press play | Eric for eight seconds, Nico for nine, Sanne for nine. |
 | 1:40–1:50 | Distance flown each day | Daily distance for each bird, on the same scale. |
