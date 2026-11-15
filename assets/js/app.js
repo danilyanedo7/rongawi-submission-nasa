@@ -4,15 +4,16 @@
 
 const BIRDS = ["Eric", "Nico", "Sanne"];
 const COLORS = { Eric: "#a8201a", Nico: "#0a9396", Sanne: "#ec9a29" };
-let DURATION = 15;
+let DURATION = 15; // audio length
+let JOURNEY = 15; // the route part of the audio; any time after it is the home ending
 const DAY = 86400000;
 const STEMS = ["movement", "temperature", "wind"];
 const LAYERS = [
-  { id: "temperature", name: "NASA temperature image", voice: "Notes", color: "#ff8a3d",
+  { id: "temperature", name: "NASA temperature image", voice: "Chords", color: "#ff8a3d",
     icon: '<path d="M10 14.5V5a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>' },
   { id: "wind", name: "Wind near Nico", voice: "30 October 2024 · ERA5", color: "#7cc4ff",
     icon: '<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>' },
-  { id: "movement", name: "Bird movement", voice: "Beat", color: "#ffffff",
+  { id: "movement", name: "Bird movement", voice: "Melody and beat", color: "#ffffff",
     icon: '<path d="M4 18c3-1 4-5 7-6s5 2 9-6"/><circle cx="20" cy="6" r="1.6"/>' },
 ];
 const BIRD_INFO = {
@@ -74,6 +75,7 @@ async function loadData() {
   if (!daily.length || !totals.length || !eic.frames?.length) throw new Error("No journey data available");
   data.score = score;
   DURATION = score.duration;
+  JOURNEY = score.journey_seconds ?? DURATION;
 
   data.stats = stats;
   data.totals = Object.fromEntries(totals.map((r) => [r.bird, r]));
@@ -732,7 +734,7 @@ async function hearWind(offset = 0, together = false) {
   audio.pause(); state.preview = false;
   await setBird("Nico");
   state.progress = timeToProgress(Date.parse(data.score.wind_example.hours[0]), "Nico");
-  audio.offset = state.progress * DURATION;
+  audio.offset = state.progress * JOURNEY;
   state.layers = { movement: together, temperature: together, wind: true };
   syncLayers(); updateMotionUI(); renderDynamic();
   try { await windDemo.play(offset); }
@@ -754,7 +756,7 @@ async function togglePlay() {
   updateMotionUI();
   if (audio.playing) audio.pause();
   else {
-    try { audio.offset = state.progress * DURATION; await audio.play(); }
+    try { audio.offset = state.progress * JOURNEY; await audio.play(); }
     catch (err) { console.error(err); toast("The sound could not load, press Play to try again", 3500); }
   }
 }
@@ -892,14 +894,14 @@ function updatePlayhead() {
   const px = tl.x(state.progress);
   d3.select("#timeline .tl-head").attr("transform", `translate(${px},0)`);
   d3.selectAll("#timeline .tl-bar").classed("is-past", (d) => timeToProgress(d.t) <= state.progress);
-  $("#journey-position").value = state.progress * DURATION;
-  $("#journey-position").setAttribute("aria-valuetext", `${Math.round(state.progress * DURATION)} seconds of ${DURATION}`);
+  $("#journey-position").value = state.progress * JOURNEY;
+  $("#journey-position").setAttribute("aria-valuetext", `${Math.round(state.progress * JOURNEY)} seconds of ${JOURNEY}`);
 }
 
 function scrub(p) {
   windDemo.stop();
   state.progress = clamp(p, 0, 1);
-  audio.seek(state.progress * DURATION);
+  audio.seek(state.progress * JOURNEY);
   renderDynamic();
 }
 
@@ -913,7 +915,7 @@ async function setBird(bird) {
   $$(".chip").forEach((c) => c.setAttribute("aria-pressed", String(c.textContent.trim() === bird)));
   renderStatic();
   drawTimeline();
-  audio.offset = state.progress * DURATION;
+  audio.offset = state.progress * JOURNEY;
   if (CHAPTERS[state.chapter].id === "explore") renderStory();
   if (wasPlaying) await togglePlay();
 }
@@ -1051,8 +1053,8 @@ const CHAPTERS = [
       <h2>What each sound means</h2>
       <p class="lede">Play them one at a time, then all together.</p>
       <ul class="mapping">
-        <li><button type="button" data-solo="movement"><i style="background:#fff"></i><span><b>Bird movement</b><small>How far the bird flew that day</small></span><em>Beat</em></button></li>
-        <li><button type="button" data-solo="temperature"><i style="background:#ff8a3d"></i><span><b>NASA temperature image</b><small>Colour under the bird</small></span><em>Notes</em></button></li>
+        <li><button type="button" data-solo="movement"><i style="background:#fff"></i><span><b>Bird movement</b><small>Where the bird is and how far it flew</small></span><em>Melody</em></button></li>
+        <li><button type="button" data-solo="temperature"><i style="background:#ff8a3d"></i><span><b>NASA temperature image</b><small>Colour under the bird</small></span><em>Chords</em></button></li>
         <li><button type="button" data-solo="wind" ${data.hasWind ? "" : "disabled"}><i style="background:#7cc4ff"></i><span><b>Wind near Nico</b><small>Recorded on 30 October 2024</small></span><em>Wind</em></button></li>
       </ul>
       <p class="hint"><button type="button" class="ghost" data-all>Play all three</button></p>`,
@@ -1221,14 +1223,14 @@ function tickPitch() {
       else {
       LAYERS.forEach((layer) => { state.layers[layer.id] = (stem === "all" || layer.id === stem) && (layer.id !== "wind" || data.hasWind); });
       audio.pause(); state.bird = "Eric"; setBirdSilently("Eric");
-      state.progress = local / DURATION; audio.offset = local;
+      state.progress = local / JOURNEY; audio.offset = local;
       drawTimeline(); syncLayers(); audio.play().catch(() => toast("The sound could not load, press Play to try again", 2500));
       }
     } else if (chapter === 5) {
       const birdIndex = Number(cue.split(":")[1]);
       audio.pause(); setBird(BIRDS[birdIndex]); allLayers();
-      const offset = DURATION * .7 + local - [0, 8, 17][birdIndex];
-      state.progress = offset / DURATION; audio.offset = offset;
+      const offset = JOURNEY * .7 + local - [0, 8, 17][birdIndex];
+      state.progress = Math.min(offset / JOURNEY, 1); audio.offset = offset;
       audio.play().catch(() => toast("The sound could not load, press Play to try again", 2500));
     } else {
       audio.pause();
@@ -1285,8 +1287,8 @@ function buildNav() {
     .on("click", (e, d) => go(CHAPTERS.indexOf(d)));
   d3.select("#mobile-chapter").selectAll("option").data(CHAPTERS).join("option").attr("value", (_, i) => i).text((_, i) => `${i + 1}. ${PITCH_TITLES[i]}`);
   $("#mobile-chapter").addEventListener("change", (event) => go(Number(event.target.value)));
-  $("#journey-position").max = DURATION;
-  $("#journey-position").addEventListener("input", (event) => { state.preview = false; updateMotionUI(); scrub(Number(event.target.value) / DURATION); });
+  $("#journey-position").max = JOURNEY;
+  $("#journey-position").addEventListener("input", (event) => { state.preview = false; updateMotionUI(); scrub(Number(event.target.value) / JOURNEY); });
   $("#btn-pitch")?.addEventListener("click", startPitch);
   $("#btn-motion").addEventListener("click", () => {
     if (pitch.running) pausePitch();
@@ -1378,11 +1380,11 @@ function tick() {
       audio.offset = 0;
       state.progress = 1;
     } else {
-      state.progress = t / DURATION;
+      state.progress = Math.min(t / JOURNEY, 1);
     }
     renderDynamic();
   } else if (state.preview && ["hook", "maps", "takeaway"].includes(CHAPTERS[state.chapter].id)) {
-    state.progress = clamp(state.progress + delta / DURATION, 0, 1);
+    state.progress = clamp(state.progress + delta / JOURNEY, 0, 1);
     renderDynamic();
     if (state.progress >= 1) { state.preview = false; updateMotionUI(); }
   }

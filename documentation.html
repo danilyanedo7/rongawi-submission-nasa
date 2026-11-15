@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <section class="hero wrap" aria-labelledby="title">
     <p class="eyebrow">NASA Space Apps Challenge 2026: The Earth Information Jukebox</p>
     <h1 id="title">Earth Information Jukebox</h1>
-    <p class="lead">A web page where you can follow three gulls on their autumn migration by watching, by listening, or both. The notes come from NASA Earth Information Center temperature imagery, and the rhythm comes from the birds' GPS tracks.</p>
+    <p class="lead">A web page where you can follow three gulls on their autumn migration by watching, by listening, or both. The harmony comes from NASA Earth Information Center temperature imagery, and the melody and rhythm come from the birds' GPS tracks.</p>
     <p class="byline">By team <strong>Rongawi Iwak Tempe Solutions</strong></p>
     <dl class="facts">
       <div><dt>Birds</dt><dd>3 lesser black-backed gulls</dd></div>
@@ -207,29 +207,32 @@ ul.task-list li input[type="checkbox"] {
         </div>
         <div class="step" data-step="compose">
           <h3>Step 2: Turn the data into music</h3>
-          <p>Our script <code>route_to_midi.py</code> splits each journey into 30 half-second steps and writes a MIDI file:</p>
+          <p>Each journey is split into 26 one-second steps and written as a MIDI file, followed by a 4-second ending back at the colony:</p>
           <ul>
-            <li>The image warmth sets the note. A warmer colour plays a higher note, on a C minor pentatonic scale so that any combination sounds reasonable.</li>
+            <li>The image warmth under the bird sets the chord. A warmer colour plays a higher chord, on a D minor pentatonic scale so that any combination sounds reasonable.</li>
+            <li>Latitude sets the melody: higher in the north, lower in the south. On the way back the same melody plays upside down.</li>
             <li>The distance flown that day sets the beat, up to four pulses per beat on the busiest days. On a rest day the beat stops and the melody holds one long note.</li>
-            <li>The wind sets the tempo and the harmony. Stronger wind is faster, a tailwind gives open intervals and a headwind gives tense ones.</li>
+            <li>Distance from the colony sets a low drone on the home note: loud near home, quiet far away. The ending plays the home chord.</li>
+            <li>In the wind example, the wind sets the tempo and the interval. Stronger wind is faster, a tailwind gives open intervals and a headwind gives tense ones.</li>
           </ul>
         </div>
         <div class="step" data-step="render">
           <h3>Step 3: Play it with instrument sounds</h3>
-          <p>FluidSynth plays the MIDI through a General MIDI soundfont: flute for the melody, marimba for the beat and a warm pad for the harmony. Each instrument is saved as its own track, which is why each map layer can switch its sound on and off.</p>
+          <p>FluidSynth plays the MIDI through a General MIDI soundfont: flute for the melody, marimba for the beat, a warm pad for the harmony and a low cello drone for the ending at home. Each instrument is saved as its own track, which is why each map layer can switch its sound on and off.</p>
         </div>
         <div class="step" data-step="sync">
           <h3>Step 4: Keep the map and the sound in sync</h3>
-          <p>Each journey lasts 15 seconds. The browser starts every track on the same clock as the map, so the note you hear comes from the colour under the bird you are looking at.</p>
+          <p>Each recording lasts 30 seconds: 26 seconds of journey and 4 seconds at home. The browser starts every track on the same clock as the map, so the chord you hear comes from the colour under the bird you are looking at.</p>
         </div>
       </div>
       <figure class="stage" aria-labelledby="map-cap">
         <ol class="pipeline">
           <li data-for="read"><span class="pi-label">EIC frame colour</span><span class="pi-out">a warmth value from 0 to 1</span></li>
-          <li data-for="compose"><span class="pi-label">Warmth</span><span class="pi-out">flute notes, MIDI 48 to 72</span></li>
+          <li data-for="compose"><span class="pi-label">Warmth</span><span class="pi-out">pad chords, MIDI 48 to 64</span></li>
+          <li data-for="compose"><span class="pi-label">Latitude</span><span class="pi-out">flute melody, MIDI 60 to 84</span></li>
           <li data-for="compose"><span class="pi-label">Daily distance</span><span class="pi-out">marimba, 0 to 4 pulses per beat</span></li>
           <li data-for="compose"><span class="pi-label">Wind</span><span class="pi-out">tempo 60 to 140 BPM and the pad interval</span></li>
-          <li data-for="render"><span class="pi-label">MIDI</span><span class="pi-out">3 tracks played by FluidSynth</span></li>
+          <li data-for="render"><span class="pi-label">MIDI</span><span class="pi-out">4 tracks played by FluidSynth</span></li>
           <li data-for="sync"><span class="pi-label">Tracks</span><span class="pi-out">one clock shared with the map</span></li>
         </ol>
         <figcaption id="map-cap">How one moment of a journey becomes sound.</figcaption>
@@ -241,35 +244,35 @@ ul.task-list li input[type="checkbox"] {
   <section id="listen" class="chapter" aria-labelledby="listen-h">
     <div class="wrap narrow">
       <h2 id="listen-h"><span class="num">5</span> Listen</h2>
-      <p>Each recording is 15 seconds long and covers one whole journey, from departure to return. Headphones help.</p>
+      <p>Each recording is 30 seconds long. The first 26 seconds cover the whole journey, from departure to return, and the last 4 seconds are the bird back home. Headphones help.</p>
       <div class="listen">
         <article class="clip">
           <h3><span class="dot eric" aria-hidden="true"></span> Eric</h3>
           <audio controls="" preload="none" src="assets/audio/eric.mp3" aria-describedby="eric-desc"></audio>
-          <p id="eric-desc">What you hear: the beat runs almost the whole way through, because Eric kept moving around Spain all winter. The notes are lowest at the start and end, near Belgium, and highest in the middle, while he is in Spain.</p>
+          <p id="eric-desc">What you hear: the beat runs almost the whole way through, because Eric kept moving around Spain all winter. Eric's chords sit lower than the others', because inland Spain reads cooler on the NASA image. In the last four seconds the beat stops and a low drone marks the return home.</p>
         </article>
         <article class="clip">
           <h3><span class="dot nico" aria-hidden="true"></span> Nico</h3>
           <audio controls="" preload="none" src="assets/audio/nico.mp3" aria-describedby="nico-desc"></audio>
-          <p id="nico-desc">What you hear: a busy beat at the start, when he crosses the Bay of Biscay, then mostly long held notes while he stays at Dakhla for 139 days, and a busy beat again on the way home.</p>
+          <p id="nico-desc">What you hear: a burst of beats at the start, including the crossing of the Bay of Biscay, then long held notes for most of the piece during the stay at Dakhla, and the beat again on the way home. A low drone ends the journey back at the colony.</p>
         </article>
         <article class="clip">
           <h3><span class="dot sanne" aria-hidden="true"></span> Sanne</h3>
           <audio controls="" preload="none" src="assets/audio/sanne.mp3" aria-describedby="sanne-desc"></audio>
-          <p id="sanne-desc">What you hear: a steady beat in the first part while she works her way south, quieter held notes during her weeks at Dakhla, and a busy end as she flies home. The notes are highest in the middle, on the Saharan coast.</p>
+          <p id="sanne-desc">What you hear: a steady beat for most of the way south, a stretch of held notes at Dakhla, and a busy beat on the flight home before the drone at the end.</p>
         </article>
         <article class="clip">
           <h3>Nico and the wind, 30 October 2024</h3>
           <audio controls="" preload="none" src="assets/audio/nico-wind-example.mp3" aria-describedby="wind-desc"></audio>
-          <p id="wind-desc">What you hear: 21 hours over the Bay of Biscay in 8 seconds. The tempo slows as the tailwind drops from about 10 to 5 m/s. The pad plays open intervals because the wind is behind him the whole time.</p>
+          <p id="wind-desc">What you hear: 21 hours over the Bay of Biscay in 8 seconds. The tempo slows as the tailwind drops from about 10 to 5 m/s. The pad plays open intervals because the wind is behind Nico the whole time.</p>
         </article>
       </div>
       <details class="stems">
         <summary>Hear each instrument on its own</summary>
         <ul>
-          <li>Eric: <a href="assets/audio/eric-movement.mp3">beat (movement)</a>, <a href="assets/audio/eric-temperature.mp3">notes (EIC temperature)</a></li>
-          <li>Nico: <a href="assets/audio/nico-movement.mp3">beat (movement)</a>, <a href="assets/audio/nico-temperature.mp3">notes (EIC temperature)</a></li>
-          <li>Sanne: <a href="assets/audio/sanne-movement.mp3">beat (movement)</a>, <a href="assets/audio/sanne-temperature.mp3">notes (EIC temperature)</a></li>
+          <li>Eric: <a href="assets/audio/eric-movement.mp3">melody, beat and drone (GPS track)</a>, <a href="assets/audio/eric-temperature.mp3">chords (EIC temperature)</a></li>
+          <li>Nico: <a href="assets/audio/nico-movement.mp3">melody, beat and drone (GPS track)</a>, <a href="assets/audio/nico-temperature.mp3">chords (EIC temperature)</a></li>
+          <li>Sanne: <a href="assets/audio/sanne-movement.mp3">melody, beat and drone (GPS track)</a>, <a href="assets/audio/sanne-temperature.mp3">chords (EIC temperature)</a></li>
         </ul>
       </details>
     </div>
@@ -317,7 +320,7 @@ ul.task-list li input[type="checkbox"] {
             <li style="--c:#a8201a">Eric <code>#a8201a</code></li>
             <li style="--c:#0a9396">Nico <code>#0a9396</code></li>
             <li style="--c:#ec9a29">Sanne <code>#ec9a29</code></li>
-            <li style="--c:#ff8a3d">Temperature notes <code>#ff8a3d</code></li>
+            <li style="--c:#ff8a3d">Temperature chords <code>#ff8a3d</code></li>
             <li style="--c:#7cc4ff">Wind <code>#7cc4ff</code></li>
             <li style="--c:#ffffff">Movement beat <code>#ffffff</code></li>
           </ul>
