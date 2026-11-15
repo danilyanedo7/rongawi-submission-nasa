@@ -7,3 +7,4 @@ __pycache__/
 scripts/soundfont/*.SF2
 scripts/soundfont/*.SF2
 scripts/soundfont/*.SF2
+.DS_Store
