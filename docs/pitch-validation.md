@@ -24,7 +24,7 @@ The soundfont test is skipped if FluidSynth is not installed.
 
 ## What we check by hand before presenting
 
-- All eight chapters, on a laptop screen and on a phone
+- All seven chapters, on a laptop screen and on a phone
 - Play, pause, seeking and switching birds
 - The kettle, each sound on its own, and all sounds together in chapter 5
 - The two-minute timer (P) and the speaker notes (O)

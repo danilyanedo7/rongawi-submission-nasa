@@ -64,7 +64,7 @@ format:
   <section class="story" aria-live="polite">
     <div class="story-inner" id="story"><p class="lede">Loading the journeys…</p></div>
     <div class="story-nav">
-      <span class="story-count" id="story-count">1 / 8</span>
+      <span class="story-count" id="story-count">1 / 7</span>
       <button type="button" class="nav-btn" id="btn-prev" aria-label="Previous chapter">←</button>
       <button type="button" class="nav-btn nav-next" id="btn-next" aria-label="Next chapter">→</button>
     </div>

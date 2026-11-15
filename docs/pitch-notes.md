@@ -1,16 +1,15 @@
 # Flock Around and Find Out: two-minute pitch
 
-The pitch is `index.qmd`, an eight-chapter story told over a live map. The longer write-up is `documentation.qmd`.
+The pitch is `index.qmd`, a seven-chapter story told over a live map. The longer write-up is `documentation.qmd`.
 
 | Time | Chapter | What happens on screen |
 | --- | --- | --- |
-| 0:00–0:10 | Have you ever wondered what it feels like to be a migrating bird? | The three routes draw in. |
-| 0:10–0:22 | Every journey has a rhythm and a story | The map shows the routes without sound. |
-| 0:22–0:40 | Listening to a kettle | A six-second kettle heats up: the hiss grows, then the whistle rises to the boil. Leave room to hear it. |
-| 0:40–0:52 | Let's hear what the journey feels like | An invitation to listen to the birds' journeys. |
-| 0:52–1:14 | What each sound means | Five seconds of movement, five of the NASA image, six of Nico's wind, then six with all three together. |
-| 1:14–1:40 | Pick a bird and press play | Eric for eight seconds, Nico for nine, Sanne for nine. |
-| 1:40–1:50 | Distance flown each day | Daily distance for each bird, on the same scale. |
+| 0:00–0:15 | Have you ever wondered what it feels like to be a migrating bird? | The three routes draw in. |
+| 0:15–0:32 | Every journey has a rhythm and a story | The map shows the routes without sound. |
+| 0:32–0:50 | Listening to a kettle | A six-second kettle heats up: the hiss grows, then the whistle rises to the boil. Leave room to hear it. |
+| 0:50–1:02 | Let's hear what the journey feels like | An invitation to listen to the birds' journeys. |
+| 1:02–1:24 | What each sound means | Five seconds of movement, five of the NASA image, six of Nico's wind, then six with all three together. |
+| 1:24–1:50 | Pick a bird and press play | Eric for eight seconds, Nico for nine, Sanne for nine. |
 | 1:50–2:00 | Other data we could play | Ideas for fire detections, rainfall and spacecraft paths. |
 
 Press P to run the timed pitch and O for the speaker notes. The notes are in `assets/js/app.js`. The timer follows elapsed time, so a slow frame never pushes the chapters out of sync. There is no recorded narration: the presenter speaks over the sound.
