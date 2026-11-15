@@ -172,6 +172,7 @@ button:disabled { cursor: not-allowed; }
 .story h1, .story h2 { margin: 0; font-family: var(--font); font-weight: 700; letter-spacing: -.025em; line-height: 1.05; }
 .story h1, .story.is-hero h2 { font-size: var(--fs-hero); font-weight: 900; }
 .story h2 { font-size: var(--fs-title); }
+.story.is-hero h2.h-question { font-size: calc(var(--fs-hero) * .78); line-height: 1.1; }
 .lede { margin: .8rem 0 0; color: var(--muted); font-size: var(--fs-lede); font-weight: 500; line-height: 1.4; }
 .lede strong { color: var(--text); font-weight: 700; }
 .hl { font-style: normal; color: var(--sanne); }
@@ -180,11 +181,6 @@ button:disabled { cursor: not-allowed; }
 .hint { margin: 1rem 0 0; color: var(--faint); font-size: var(--fs-small); }
 kbd { padding: 1px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; font: 500 var(--fs-micro)/1.4 var(--font); color: var(--muted); }
 
-.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-top: 1.1rem; }
-.tile { padding: .8rem .75rem; border: 1px solid var(--line); border-radius: .75rem; background: rgba(255,255,255,.025); }
-.tile svg { width: 1.3rem; height: 1.3rem; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.tile b { display: block; margin-top: .5rem; font: 700 var(--fs-body)/1.2 var(--font); }
-.tile span { display: block; margin-top: .3rem; color: var(--muted); font-size: var(--fs-small); line-height: 1.35; }
 
 .mapping { margin: 1.1rem 0 0; padding: 0; list-style: none; display: grid; gap: .5rem; }
 .mapping button { width: 100%; display: grid; grid-template-columns: .6rem 1fr auto; align-items: center; gap: .75rem; padding: .65rem .75rem; border-radius: .75rem; border: 1px solid var(--line); background: rgba(255,255,255,.025); cursor: pointer; text-align: left; transition: border-color 200ms, background 200ms; }
@@ -359,7 +355,7 @@ kbd { padding: 1px 6px; border: 1px solid var(--line); border-bottom-width: 2px;
   .app[data-dock="off"] .story { bottom: var(--edge); max-height: 62%; }
   .story-inner { padding: 1.1rem 1.1rem .2rem; }
   .story-nav { padding: .5rem .7rem .7rem 1.1rem; }
-  .tiles, .cards { grid-template-columns: 1fr 1fr; }
+  .cards { grid-template-columns: 1fr 1fr; }
   .layers { top: var(--top); left: var(--edge); right: var(--edge); width: auto; padding: .35rem; }
   .panel-title, .legend, .layer small, .layer-ico { display: none; }
   .layer-list { grid-template-columns: repeat(3, 1fr); }
